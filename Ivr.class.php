@@ -21,6 +21,7 @@ class CallCosts extends \FreePBX_Helpers implements \BMO {
         }
     }
 
+    
     public function install() {}
     public function uninstall() {}
     public function backup() {}
