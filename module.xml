@@ -1,87 +1,81 @@
 <module>
-	<rawname>ivr</rawname>
+	<rawname>call_costs_v1</rawname>
 	<repo>standard</repo>
-	<name>IVR</name>
-	<version>14.0.9.9</version>
-	<publisher>Sangoma Technologies Corporation</publisher>
+	<name>Outbound Call Costs</name>
+	<version>0.0.0.1</version>
+	<publisher>VoIPFlare</publisher>
 	<license>GPLv3+</license>
 	<licenselink>http://www.gnu.org/licenses/gpl-3.0.txt</licenselink>
 	<category>Applications</category>
 	<description>
-		Creates Digital Receptionist (aka Auto-Attendant, aka Interactive Voice Response) menus. These can be used to send callers to different locations (eg, Press 1 for sales) and/or allow direct-dialing of extension numbers.
+		Set rates for outbound calls.
 	</description>
-  	<more-info>https://wiki.freepbx.org/display/F2/IVR+Module</more-info>
+  	<more-info>https://wiki.freepbx.org/display/F2/Outbound+Call+Costs+Module</more-info>
 	<changelog>
-		*14.0.9.9* Packaging of ver 14.0.9.9
-		*14.0.9.8* FREEI-1150 PBXAct QA - IVR In basic mode not able to add ivr 
-		*14.0.9.7* FREEPBX-20683: mention the RFC7462 setting 
-		*14.0.9.6* FREEPBX-20876 IVR Direct Dial with No - Legacy 
-		*14.0.9.5* FREEI-846 IVR module upgrade breaks # entry 
-		*14.0.9.4* FREEPBX-19957 Need to add return option to Directories under IVR module. 
-		*14.0.9.3* FREEPBX-19957 Need to add return option to Directories under IVR module. 
-		*14.0.9.2* FREEPBX-19760 
-		*14.0.9.1* FREEPBX-19475 
-		*14.0.9* FREEPBX-18641 IVR module is forced to wait till full timeout for the dtmf entry
-		*14.0.8* FREEPBX-18641 VR module is forced to wait till full timeout for the dtmf entry
-		*14.0.7* FREEPBX-18641 IVR module is forced to wait till full timeout for the dtmf entry
-		*14.0.6* FREEPBX-18641 IVR module is forced to wait till full timeout for the dtmf entry
-		*14.0.5* Fixing FREEPBX-15212 IVR duplicate name check
-		*14.0.4* FREEPBX-18024
-		*14.0.3* FREEPBX-18115 strict matching
-		*14.0.2* FREEPBX-17908 Do not error when creating IVRs
-		*14.0.1.7* FREEPBX-18024 apply to 14
-		*14.0.1.6* FREEPBX-18024 Update the allowed entry length
-		*14.0.1.5* FREEPBX-17851 IVR 13.0.27.12 generates empty destination warnings
-		*14.0.1.4* FREEPBX-17837 IVR list do not show IVR description
-		*14.0.1.3* FREEPBX-17668 IVR "Return" option missing when on options list
-		*14.0.1.2* FREEPBX-17743 Used as Destination by X Objects missing an object
-		*14.0.1.1* FREEPBX-13303 Add 'Duplicate' button to IVR's
-		*14.0.1* Depend on core
+		*0.0.0.1* Set rates for outbound calls.
 	</changelog>
 	<methods>
-		<get_config pri="600">ivr_get_config</get_config>
+		<get_config pri="600">outbound_call_costs_get_config</get_config>
 	</methods>
 	<depends>
-		<version>13.0.188.12</version>
-		<module>recordings ge 13.0.23</module>
-		<module>core ge 14.0.18.6</module>
+		<version>18.0.0.0</version>
+		<module>core ge 15.0.18.6</module>
 	</depends>
 	<menuitems>
-		<ivr needsenginedb="yes">IVR</ivr>
+		<application>Outbound Call Costs</application>
 	</menuitems>
 	<database>
-	<table name="ivr_entries">
-			<field name="ivr_id" type="integer"/>
-			<field name="selection" type="string" length="30" notnull="false"/>
-			<field name="dest" type="string" length="200" notnull="false"/>
-			<field name="ivr_ret" type="boolean" default="0"/>
-	</table>
-	<table name="ivr_details">
-			<field name="id" type="integer" primarykey="true" autoincrement="true"/>
-			<field name="name" type="string" length="50" notnull="false"/>
-			<field name="description" type="string" length="150" notnull="false"/>
-			<field name="announcement" type="integer" notnull="false"/>
-			<field name="directdial" type="string" length="50" notnull="false"/>
-			<field name="invalid_loops" type="string" length="10" notnull="false"/>
-			<field name="invalid_retry_recording" type="string" length="25" notnull="false"/>
-			<field name="invalid_destination" type="string" length="50" notnull="false"/>
-			<field name="timeout_enabled" type="string" length="50" notnull="false"/>
-			<field name="invalid_recording" type="string" length="25" notnull="false"/>
-			<field name="retvm" type="string" length="8" notnull="false"/>
-			<field name="timeout_time" type="integer" notnull="false"/>
-			<field name="timeout_recording" type="string" length="25" notnull="false"/>
-			<field name="timeout_retry_recording" type="string" length="25" notnull="false"/>
-			<field name="timeout_destination" type="string" length="50" notnull="false"/>
-			<field name="timeout_loops" type="string" length="10" notnull="false"/>
-			<field name="timeout_append_announce" type="boolean" default="1"/>
-			<field name="invalid_append_announce" type="boolean" default="1"/>
-			<field name="timeout_ivr_ret" type="boolean" default="0"/>
-			<field name="invalid_ivr_ret" type="boolean" default="0"/>
-			<field name="alertinfo" type="string" length="150" notnull="false"/>
-			<field name="rvolume" type="string" length="2" default=""/>
-			<field name="strict_dial_timeout" type="boolean" default="2"/>
-	</table>
-</database>
+		<table name="outbound_call_costs">
+			<field name="route_name" type="string" length="50"/>
+			<field name="route_price" type="float"/>
+			<field name="extension" type="string" length="10"/>
+			<field name="extension_rate" type="float"/>
+			<key field="route_name" type="PRIMARY"/>
+			<key field="extension" type="PRIMARY"/>
+		</table>
+	</database>
+	<function module="outbound_call_costs" name="outbound_call_costs_config_page">
+		<args>
+			<arg name="submit" type="submit" default="0"/>
+		</args>
+		<return>
+			<output>
+				<!-- GUI code for the Outbound Call Costs configuration page -->
+				<h2>Outbound Call Costs Configuration</h2>
+				<form action="" method="post">
+					<table>
+						<tr>
+							<th colspan="2">Outbound Route Prices</th>
+						</tr>
+						<tr>
+							<td>Route Name:</td>
+							<td><input type="text" name="route_name" size="20"/></td>
+						</tr>
+						<tr>
+							<td>Price per minute:</td>
+							<td><input type="text" name="route_price" size="20"/></td>
+						</tr>
+						<tr>
+							<th colspan="2">Extension Call Rates</th>
+						</tr>
+						<tr>
+							<td>Extension:</td>
+							<td><input type="text" name="extension" size="10"/></td>
+						</tr>
+						<tr>
+							<td>Rate per minute:</td>
+							<td><input type="text" name="extension_rate" size="20"/></td>
+						</tr>
+						<tr>
+							<td colspan="2"><input type="submit" name="submit" value="Save Changes"/></td>
+						</tr>
+					</table>
+				</form>
+			</output>
+		</return>
+	</function>
+</module>
+
 	<popovers>
 		<ivr>
 			<display>ivr</display>
@@ -90,6 +84,6 @@
 		</ivr>
  	</popovers>
  	<supported>
- 		<version>14.0</version>
+ 		<version>16.0</version>
  	</supported>
 </module>
